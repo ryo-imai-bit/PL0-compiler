@@ -1,0 +1,8 @@
+version: '3'
+services:
+  compiler:
+    image: 'gcc:11.2'
+    volumes:
+      - ./src:/usr/src/cpp
+    working_dir: /usr/src/cpp
+    tty: true
