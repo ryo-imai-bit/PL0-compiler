@@ -2,6 +2,10 @@
 
 PL/0' compiler from https://www.ohmsha.co.jp/book/9784274130137/
 
+## TODO
+
+- add tests.
+
 ## USAGE
 
 compile on Docker.

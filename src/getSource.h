@@ -36,7 +36,7 @@ typedef  struct  token {			/*　トークンの型　*/
 		char id[MAXNAME]; 		/*　Identfierの時、その名前　*/
 		int value;				/*　Numの時、その値　*/
 	} u;
-}Token;
+} Token;
 
 Token nextToken();				/*　次のトークンを読んで返す　*/
 Token checkGet(Token t, KeyId k);	/*　t.kind==kのチェック　*/

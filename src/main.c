@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "getSource.h"
 
-main()
+void main()
 {
 	char fileName[30];		/*　ソースプログラムファイルの名前　*/
 	printf("enter source file name\n");
