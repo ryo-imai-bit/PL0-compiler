@@ -3,11 +3,11 @@
 
 typedef enum kindT {		/*　Identifierの種類　*/
 	varId, funcId, parId, constId
-}KindT;
+} KindT;
 typedef struct relAddr{		/*　変数、パラメタ、関数のアドレスの型　*/
 	int level;
 	int addr;
-}RelAddr; 
+} RelAddr;
 
 void blockBegin(int firstAddr);	/*　ブロックの始まり(最初の変数の番地)で呼ばれる　*/
 void blockEnd();			/*　ブロックの終りで呼ばれる　*/

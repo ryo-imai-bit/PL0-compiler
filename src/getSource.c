@@ -118,7 +118,7 @@ int openSource(char fileName[]) 		/*　ソースファイルのopen　*/
 	if ( (fptex = fopen(fileNameO,"w")) == NULL ) {	 /*　.html（または.tex）ファイルを作る　*/
 		printf("can't open %s\n", fileNameO);
 		return 0;
-	} 
+	}
 	return 1;
 }
 
@@ -138,7 +138,7 @@ void initSource()
 	fprintf(fptex,"<HEAD>\n<TITLE>compiled source program</TITLE>\n</HEAD>\n");
 	fprintf(fptex,"<BODY>\n<PRE>\n");
 /*  　LaTeXコマンド　
-	fprintf(fptex,"\\documentstyle[12pt]{article}\n");   
+	fprintf(fptex,"\\documentstyle[12pt]{article}\n");
 	fprintf(fptex,"\\begin{document}\n");
 	fprintf(fptex,"\\fboxsep=0pt\n");
 	fprintf(fptex,"\\def\\insert#1{$\\fbox{#1}$}\n");
@@ -156,10 +156,10 @@ void finalSource()
 	fprintf(fptex,"\n</PRE>\n</BODY>\n</HTML>\n");
 	/* 	fprintf(fptex,"\n\\end{document}\n"); */
 }
-	
+
 /*　通常のエラーメッセージの出力の仕方（参考まで）　*/
 /*
-void error(char *m)	
+void error(char *m)
 {
 	if (lineIndex > 0)
 		printf("%*s\n", lineIndex, "***^");
@@ -169,7 +169,7 @@ void error(char *m)
 	errorNo++;
 	if (errorNo > MAXERROR){
 		printf("too many errors\n");
-		printf("abort compilation\n");	
+		printf("abort compilation\n");
 		exit (1);
 	}
 }
@@ -180,7 +180,7 @@ void errorNoCheck()			/*　エラーの個数のカウント、多すぎたら�
 	if (errorNo++ > MAXERROR){
 		fprintf(fptex, "too many errors\n</PRE>\n</BODY>\n</HTML>\n");
 		/* fprintf(fptex, "too many errors\n\\end{document}\n"); */
-		printf("abort compilation\n");	
+		printf("abort compilation\n");
 		exit (1);
 	}
 }
@@ -199,7 +199,7 @@ void errorInsert(KeyId k)		/*　keyString(k)を.html（または.tex）ファイ
 {
 	fprintf(fptex, "<FONT COLOR=%s><b>%s</b></FONT>", INSERT_C, KeyWdT[k].word);
 	// 	if (k < end_of_KeyWd) 	/*　予約語　*/
-	//		 fprintf(fptex, "\\ \\insert{{\\bf %s}}", KeyWdT[k].word); 
+	//		 fprintf(fptex, "\\ \\insert{{\\bf %s}}", KeyWdT[k].word);
 	//	else 					/*　演算子か区切り記号　*/
 	//	fprintf(fptex, "\\ \\insert{$%s$}", KeyWdT[k].word); */
 	errorNoCheck();
@@ -252,7 +252,7 @@ void errorF(char *m)			/*　エラーメッセージを出力し、コンパイ�
 	/* fprintf(fptex, "fatal errors\n\\end{document}\n"); */
 	if (errorNo)
 		printf("total %d errors\n", errorNo);
-	printf("abort compilation\n");	
+	printf("abort compilation\n");
 	exit (1);
 }
 
@@ -265,7 +265,7 @@ char nextChar()				/*　次の１文字を返す関数　*/
 {
 	char ch;
 	if (lineIndex == -1){
-		if (fgets(line, MAXLINE, fpi) != NULL){ 
+		if (fgets(line, MAXLINE, fpi) != NULL){
 /*			puts(line); */	/*　通常のエラーメッセージの出力の場合（参考まで）　*/
 			lineIndex = 0;
 		} else {
@@ -310,15 +310,17 @@ Token nextToken()			/*　次のトークンを読んで返す関数　*/
 		if (i >= MAXNAME){
 			errorMessage("too long");
 			i = MAXNAME - 1;
-		}	
-		ident[i] = '\0'; 
+		}
+		ident[i] = '\0';
 		for (i=0; i<end_of_KeyWd; i++)
 			if (strcmp(ident, KeyWdT[i].word) == 0) {
-				temp.kind = KeyWdT[i].keyId;  		/*　予約語の場合　*/
+				/*　予約語の場合　*/
+				temp.kind = KeyWdT[i].keyId;
 				cToken = temp; printed = 0;
 				return temp;
 			}
-		temp.kind = Id;		/*　ユーザの宣言した名前の場合　*/
+		/*　ユーザの宣言した名前の場合　*/
+		temp.kind = Id;
 		strcpy(temp.u.id, ident);
 		break;
 	case digit: 					/* number */
@@ -327,9 +329,9 @@ Token nextToken()			/*　次のトークンを読んで返す関数　*/
 			num = 10*num+(ch-'0');
 			i++; ch = nextChar();
 		} while (charClassT[ch] == digit);
-      		if (i>MAXNUM)
-      			errorMessage("too large");
-      		temp.kind = Num;
+		if (i>MAXNUM)
+			errorMessage("too large");
+		temp.kind = Num;
 		temp.u.value = num;
 		break;
 	case colon:
@@ -414,17 +416,17 @@ void printcToken()				/*　現在のトークンの印字　*/
 	else if (i < end_of_KeySym)					/*　演算子か区切り記号　*/
 		fprintf(fptex, "%s", KeyWdT[i].word);
 		/* fprintf(fptex, "$%s$", KeyWdT[i].word); */
-	else if (i==(int)Id){							/*　Identfier　*/
+	else if (i==(int)Id){							/*　Identifier　*/
 		switch (idKind) {
-		case varId: 
+		case varId:
 			fprintf(fptex, "%s", cToken.u.id); return;
-		case parId: 
+		case parId:
 			fprintf(fptex, "<i>%s</i>", cToken.u.id); return;
 			/* fprintf(fptex, "{\\sl %s}", cToken.u.id); return; */
-		case funcId: 
+		case funcId:
 			fprintf(fptex, "<i>%s</i>", cToken.u.id); return;
 			/* fprintf(fptex, "{\\it %s}", cToken.u.id); return; */
-		case constId: 
+		case constId:
 			fprintf(fptex, "<tt>%s</tt>", cToken.u.id); return;
 			/* fprintf(fptex, "{\\sf %s}", cToken.u.id); return; */
 		}

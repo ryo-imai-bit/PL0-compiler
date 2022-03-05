@@ -6,22 +6,22 @@
 #define TBL
 #include "table.h"
 #endif
- 
+
 #define MAXNAME 31			/*　名前の最大長さ　*/
- 
+
 typedef  enum  keys {			/*　キーや文字の種類（名前）　*/
 	Begin, End,				/*　予約語の名前　*/
 	If, Then,
 	While, Do,
-	Ret, Func, 
+	Ret, Func,
 	Var, Const, Odd,
 	Write, WriteLn,
 	end_of_KeyWd,				/*　予約語の名前はここまで　*/
 	Plus, Minus,				/*　演算子と区切り記号の名前　*/
-	Mult, Div,	
+	Mult, Div,
 	Lparen, Rparen,
 	Equal, Lss, Gtr,
-	NotEq, LssEq, GtrEq, 
+	NotEq, LssEq, GtrEq,
 	Comma, Period, Semicolon,
 	Assign,
 	end_of_KeySym,				/*　演算子と区切り記号の名前はここまで　*/
@@ -47,8 +47,8 @@ Token checkGet(Token t, KeyId k);	/*　t.kind==kのチェック　*/
 
 int openSource(char fileName[]); 	/*　ソースファイルのopen　*/
 void closeSource();			/*　ソースファイルのclose　*/
-void initSource();			/*　テーブルの初期設定、texファイルの初期設定　*/  
-void finalSource(); 			/*　ソースの最後のチェック、texファイルの最終設定　*/  
+void initSource();			/*　テーブルの初期設定、texファイルの初期設定　*/
+void finalSource(); 			/*　ソースの最後のチェック、texファイルの最終設定　*/
 void errorType(char *m);		/*　型エラーを.texファイルに出力　*/
 void errorInsert(KeyId k);		/*　keyString(k)を.texファイルに挿入　*/
 void errorMissingId();		/*　名前がないとのメッセージを.texファイルに挿入　*/

@@ -60,14 +60,14 @@ void block(int pIndex)		/*　pIndex はこのブロックの関数名のイン�
 			break;
 		}
 		break;
-	}			
+	}
 	backPatch(backP);			/*　内部関数を飛び越す命令にパッチ　*/
 	changeV(pIndex, nextCode());	/*　この関数の開始番地を修正　*/
 	genCodeV(ict, frameL());		/*　このブロックの実行時の必要記憶域をとる命令　*/
-	statement();				/*　このブロックの主文　*/		
+	statement();				/*　このブロックの主文　*/
 	genCodeR();				/*　リターン命令　*/
 	blockEnd();				/*　ブロックが終ったことをtableに連絡　*/
-}	
+}
 
 void constDecl()			/*　定数宣言のコンパイル　*/
 {
@@ -150,7 +150,7 @@ void funcDecl()			/*　関数宣言のコンパイル　*/
 		}
 		block(fIndex);	/*　ブロックのコンパイル、その関数名のインデックスを渡す　*/
 		token = checkGet(token, Semicolon);		/*　最後は";"のはず　*/
-	} else 
+	} else
 		errorMissingId();			/*　関数名がない　*/
 }
 
@@ -230,7 +230,7 @@ void statement()			/*　文のコンパイル　*/
 			errorDelete();				/*　今読んだトークンを読み捨てる　*/
 			token = nextToken();
 			continue;
-		}		
+		}
 	}
 }
 
@@ -273,7 +273,7 @@ void term()					/*　式の項のコンパイル　*/
 	KeyId k;
 	factor();
 	k = token.kind;
-	while (k==Mult || k==Div){	
+	while (k==Mult || k==Div){
 		token = nextToken();
 		factor();
 		if (k==Mult)
@@ -315,7 +315,7 @@ void factor()					/*　式の因子のコンパイル　*/
 					}
 				} else
 					token = nextToken();
-				if (pars(tIndex) != i) 
+				if (pars(tIndex) != i)
 					errorMessage("\\#par");	/*　pars(tIndex)は仮引数の個数　*/
 			}else{
 				errorInsert(Lparen);
@@ -338,9 +338,9 @@ void factor()					/*　式の因子のコンパイル　*/
 		factor();
 	default:
 		return;
-	}	
+	}
 }
-	
+
 void condition()					/*　条件式のコンパイル　*/
 {
 	KeyId k;

@@ -1,6 +1,6 @@
 
    /*********table.c**********/
-   
+
 #ifndef TBL
 #define TBL
 #include "table.h"
@@ -80,10 +80,10 @@ void enterT(char *id)			/*　名前表に名前を登録　*/
 {
 	if (tIndex++ < MAXTABLE){
 		strcpy(nameTable[tIndex].name, id);
-	} else 
+	} else
 		errorF("too many names");
 }
-		
+
 int enterTfunc(char *id, int v)		/*　名前表に関数名と先頭番地を登録　*/
 {
 	enterT(id);
