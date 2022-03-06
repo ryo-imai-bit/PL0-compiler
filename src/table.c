@@ -11,6 +11,11 @@
 #define MAXNAME  31		/*　名前の最大長さ　*/
 #define MAXLEVEL 5		/*　ブロックの最大深さ　*/
 
+/*
+ * 記号表の処理、ブロックのレベルの管理
+ * ブロックのレベルはいろいろなモジュールで参照される
+*/
+
 typedef struct tableE {		/*　名前表のエントリーの型　*/
 	KindT kind;			/*　名前の種類　*/
 	char name[MAXNAME];	/*　名前のつづり　*/

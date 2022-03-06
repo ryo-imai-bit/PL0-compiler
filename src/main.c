@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "getSource.h"
 
+/* 全体の主ルーチン */
 void main()
 {
 	char fileName[30];		/*　ソースプログラムファイルの名前　*/

@@ -14,6 +14,9 @@
 #define MAXREG 20			/*　演算レジスタスタックの最大長さ　*/
 #define MAXLEVEL 5			/*　ブロックの最大深さ　*/
 
+/*
+ * 目的コード生成のサブルーチンと目的コード生成のサブルーチン
+*/
 typedef struct inst{				/*　命令語の型　*/
 	OpCode  opCode;
 	union{

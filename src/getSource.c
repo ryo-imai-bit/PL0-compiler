@@ -13,6 +13,11 @@
 #define DELETE_C  "#FF0000"  /* 削除文字の色 */
 #define TYPE_C  "#00FF00"  /* タイプエラー文字の色 */
 
+/*
+ * 入出力関係の全部、すなわち、原始プログラムの読み込み、字句解析、
+ * コンパイル結果の出力、エラーメッセージの出力など
+*/
+
 static FILE *fpi;				/*　ソースファイル　*/
 static FILE *fptex;			/*　LaTeX出力ファイル　*/
 static char line[MAXLINE];	/*　１行分の入力バッファー　*/
