@@ -21,7 +21,7 @@ typedef struct inst{				/*　命令語の型　*/
 		int value;
 		Operator optr;
 	}u;
-}Inst;
+} Inst;
 
 static Inst code[MAXCODE];		/*　目的コードが入る　*/
 static int cIndex = -1;				/*　最後に生成した命令語のインデックス　*/

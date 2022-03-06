@@ -9,6 +9,8 @@
 #include "codegen.h"
 
 #define MINERROR 3			/*　エラーがこれ以下なら実行　*/
+// 2はディスプレイの退避場所とRetAdrの分？
+// blockは最初のprogramの部分以外は関数で使われる
 #define FIRSTADDR 2			/*　各ブロックの最初の変数のアドレス　*/
 
 static Token token;				/*　次のトークンを入れておく　*/
@@ -37,7 +39,7 @@ int compile()
 	i = errorN();				/*　エラーメッセージの個数　*/
 	if (i!=0)
 		printf("%d errors\n", i);
-/*	listCode();	*/			/*　目的コードのリスト（必要なら）　*/
+	listCode();			/*　目的コードのリスト（必要なら）　*/
 	return i<MINERROR;		/*　エラーメッセージの個数が少ないかどうかの判定　*/
 }
 

@@ -3,12 +3,12 @@
 
 typedef enum codes{			/*　命令語のコード　*/
 	lit, opr, lod, sto, cal, ret, ict, jmp, jpc
-}OpCode;
+} OpCode;
 
 typedef enum ops{			/*　演算命令のコード　*/
 	neg, add, sub, mul, div, odd, eq, ls, gr,
 	neq, lseq, greq, wrt, wrl
-}Operator;
+} Operator;
 
 int genCodeV(OpCode op, int v);		/*　命令語の生成、アドレス部にv　*/
 int genCodeT(OpCode op, int ti);		/*　命令語の生成、アドレスは名前表から　*/

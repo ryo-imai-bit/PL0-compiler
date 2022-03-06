@@ -22,7 +22,7 @@ typedef struct tableE {		/*　名前表のエントリーの型　*/
 		}f;
 		RelAddr raddr;		/*　変数、パラメタの場合：アドレス　*/
 	}u;
-}TabelE;
+} TabelE;
 
 static TabelE nameTable[MAXTABLE];		/*　名前表　*/
 static int tIndex = 0;			/*　名前表のインデックス　*/
@@ -127,7 +127,7 @@ void endpar()					/*　パラメタ宣言部の最後で呼ばれる　*/
 	int pars = nameTable[tfIndex].u.f.pars;
 	if (pars == 0)  return;
 	for (i=1; i<=pars; i++)			/*　各パラメタの番地を求める　*/
-		 nameTable[tfIndex+i].u.raddr.addr = i-1-pars;
+		nameTable[tfIndex+i].u.raddr.addr = i-1-pars;
 }
 
 void changeV(int ti, int newVal)		/*　名前表[ti]の値（関数の先頭番地）の変更　*/
@@ -136,7 +136,7 @@ void changeV(int ti, int newVal)		/*　名前表[ti]の値（関数の先頭番�
 }
 
 int searchT(char *id, KindT k)		/*　名前idの名前表の位置を返す　*/
-							/*　未宣言の時エラーとする　*/
+					/*　未宣言の時エラーとする　*/
 {
 	int i;
 	i = tIndex;

@@ -37,7 +37,8 @@ struct keyWd {				/*　予約語や記号と名前(KeyId)　*/
 	KeyId keyId;
 };
 
-static struct keyWd KeyWdT[] = {	/*　予約語や記号と名前(KeyId)の表　*/
+/*　予約語や記号と名前(KeyId)の表　*/
+static struct keyWd KeyWdT[] = {
 	{"begin", Begin},
 	{"end", End},
 	{"if", If},
@@ -52,7 +53,7 @@ static struct keyWd KeyWdT[] = {	/*　予約語や記号と名前(KeyId)の表�
 	{"write", Write},
 	{"writeln",WriteLn},
 	{"$dummy1",end_of_KeyWd},
-							/*　記号と名前(KeyId)の表　*/
+	/*　記号と名前(KeyId)の表　*/
 	{"+", Plus},
 	{"-", Minus},
 	{"*", Mult},
