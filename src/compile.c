@@ -27,6 +27,7 @@ static void factor();				/*　式の因子のコンパイル　*/
 static void condition();			/*　条件式のコンパイル　*/
 static int isStBeginKey(Token t);		/*　トークンtは文の先頭のキーか？　*/
 
+/* 構文解析と意味解析とコード生成を一緒にやっている */
 int compile()
 {
 	int i;
