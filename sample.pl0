@@ -10,7 +10,7 @@ begin
 
   while x<10 do
     begin
-      write x; 
+      write x;
       write fact(x);
       writeln;
       x := x+1;

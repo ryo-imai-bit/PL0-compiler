@@ -46,6 +46,8 @@ int genCodeV(OpCode op, int v)		/*　命令語の生成、アドレス部にv　
 
 int genCodeT(OpCode op, int ti)		/*　命令語の生成、アドレスは名前表から　*/
 {
+	// 関数のcallは関数の処理がおいてある場所に飛んでreturnしてくること
+	// 呼び出し、戻り命令についてはp135
 	checkMax();
 	code[cIndex].opCode = op;
 	code[cIndex].u.addr = relAddr(ti);
@@ -149,33 +151,44 @@ void execute()			/*　目的コード（命令語）の実行　*/
 	do {
 		i = code[pc++];			/*　これから実行する命令語　*/
 		switch(i.opCode){
-		case lit: stack[top++] = i.u.value;
+		case lit:
+			stack[top++] = i.u.value;
 			break;
-		case lod: stack[top++] = stack[display[i.u.addr.level] + i.u.addr.addr];
+		case lod:
+			stack[top++] = stack[display[i.u.addr.level] + i.u.addr.addr];
 			break;
-		case sto: stack[display[i.u.addr.level] + i.u.addr.addr] = stack[--top];
+		case sto:
+			stack[display[i.u.addr.level] + i.u.addr.addr] = stack[--top];
 			break;
-		case cal: lev = i.u.addr.level +1;
+		case cal:
+			// 関数にreturn がないとどうなる？
+			lev = i.u.addr.level +1;
 			/*　 i.u.addr.levelはcalleeの名前のレベル　*/
 			/*　 calleeのブロックのレベルlevはそれに＋１したもの　*/
 			stack[top] = display[lev]; 	/*　display[lev]の退避　*/
-			stack[top+1] = pc; display[lev] = top;
+			stack[top+1] = pc;
+			display[lev] = top;
 			/*　現在のtopがcalleeのブロックの先頭番地　*/
 			pc = i.u.addr.addr;
 			break;
-		case ret: temp = stack[--top];		/*　スタックのトップにあるものが返す値　*/
+		case ret:
+			temp = stack[--top];		/*　スタックのトップにあるものが返す値　*/
 			top = display[i.u.addr.level];  	/*　topを呼ばれたときの値に戻す　*/
 			display[i.u.addr.level] = stack[top];		/* 壊したディスプレイの回復 */
 			pc = stack[top+1];
 			top -= i.u.addr.addr;		/*　実引数の分だけトップを戻す　*/
 			stack[top++] = temp;		/*　返す値をスタックのトップへ　*/
 			break;
-		case ict: top += i.u.value;
+		case ict:
+			top += i.u.value;
 			if (top >= MAXMEM-MAXREG)
 				errorF("stack overflow");
 			break;
-		case jmp: pc = i.u.value; break;
-		case jpc: if (stack[--top] == 0)
+		case jmp: 
+			pc = i.u.value;
+			break;
+		case jpc: 
+			if (stack[--top] == 0)
 			pc = i.u.value;
 			break;
 		case opr:
