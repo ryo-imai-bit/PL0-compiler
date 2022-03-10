@@ -16,6 +16,8 @@
 
 /*
  * 目的コード生成のサブルーチンと目的コード生成のサブルーチン
+ * 目的コードになるタイミングで、値はアドレスで表現されるものかリテラルになっている。
+ * アドレスはレベルとオフセットで表現されるものに、リテラルはリテラルに。
 */
 typedef struct inst{				/*　命令語の型　*/
 	OpCode  opCode;
@@ -162,6 +164,9 @@ void execute()			/*　目的コード（命令語）の実行　*/
 			break;
 		case cal:
 			// 関数にreturn がないとどうなる？
+			// retがないと処理が止まらなさそう
+			// retがないと戻り値が（設定され）ない
+
 			lev = i.u.addr.level +1;
 			/*　 i.u.addr.levelはcalleeの名前のレベル　*/
 			/*　 calleeのブロックのレベルlevはそれに＋１したもの　*/
@@ -184,29 +189,61 @@ void execute()			/*　目的コード（命令語）の実行　*/
 			if (top >= MAXMEM-MAXREG)
 				errorF("stack overflow");
 			break;
-		case jmp: 
+		case jmp:
 			pc = i.u.value;
 			break;
-		case jpc: 
+		case jpc:
 			if (stack[--top] == 0)
 			pc = i.u.value;
 			break;
 		case opr:
 			switch(i.u.optr){
-			case neg: stack[top-1] = -stack[top-1]; continue;
-			case add: --top;  stack[top-1] += stack[top]; continue;
-			case sub: --top; stack[top-1] -= stack[top]; continue;
-			case mul: --top;  stack[top-1] *= stack[top];  continue;
-			case div: --top;  stack[top-1] /= stack[top]; continue;
-			case odd: stack[top-1] = stack[top-1] & 1; continue;
-			case eq: --top;  stack[top-1] = (stack[top-1] == stack[top]); continue;
-			case ls: --top;  stack[top-1] = (stack[top-1] < stack[top]); continue;
-			case gr: --top;  stack[top-1] = (stack[top-1] > stack[top]); continue;
-			case neq: --top;  stack[top-1] = (stack[top-1] != stack[top]); continue;
-			case lseq: --top;  stack[top-1] = (stack[top-1] <= stack[top]); continue;
-			case greq: --top;  stack[top-1] = (stack[top-1] >= stack[top]); continue;
-			case wrt: printf("%d ", stack[--top]); continue;
-			case wrl: printf("\n"); continue;
+			case neg:
+				stack[top-1] = -stack[top-1];
+				continue;
+			case add:
+				--top;
+				stack[top-1] += stack[top];
+				continue;
+			case sub:
+				--top;
+				stack[top-1] -= stack[top];
+				continue;
+			case mul:
+				--top;
+				stack[top-1] *= stack[top];
+				continue;
+			case div:
+				--top;
+				stack[top-1] /= stack[top];
+				continue;
+			case odd:
+				stack[top-1] = stack[top-1] & 1;
+				continue;
+			case eq:
+				--top;
+				stack[top-1] = (stack[top-1] == stack[top]); continue;
+			case ls:
+				--top;
+				stack[top-1] = (stack[top-1] < stack[top]); continue;
+			case gr:
+				--top;
+				stack[top-1] = (stack[top-1] > stack[top]); continue;
+			case neq:
+				--top;
+				stack[top-1] = (stack[top-1] != stack[top]); continue;
+			case lseq:
+				--top;
+				stack[top-1] = (stack[top-1] <= stack[top]); continue;
+			case greq:
+				--top;
+				stack[top-1] = (stack[top-1] >= stack[top]); continue;
+			case wrt:
+				printf("%d ", stack[--top]);
+				continue;
+			case wrl:
+				printf("\n");
+				continue;
 			}
 		}
 	} while (pc != 0);
